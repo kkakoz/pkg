@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"github.com/kkakoz/pkg/conf"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -17,14 +16,14 @@ var sugarLogger *zap.SugaredLogger
 
 func L() *zap.Logger {
 	once.Do(func() {
-		initLog(conf.Conf())
+		initLog(viper.GetViper())
 	})
 	return logger
 }
 
 func Sugar() *zap.SugaredLogger {
 	once.Do(func() {
-		initLog(conf.Conf())
+		initLog(viper.GetViper())
 	})
 	return sugarLogger
 }
