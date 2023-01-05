@@ -19,7 +19,7 @@ func TestApp(t *testing.T) {
 		writer.Write([]byte("hello world"))
 	})
 
-	app := app2.NewApp("test", https.NewHttpServer(http.DefaultServeMux, ":8081"))
+	app := app2.NewApp("test", https.NewHttpServer(http.DefaultServeMux, ":8081"), https.NewHttpServer(mux2, ":8082"))
 
 	err := app.Start(context.Background())
 	if err != nil {

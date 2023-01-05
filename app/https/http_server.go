@@ -9,7 +9,6 @@ import (
 
 type HttpServer struct {
 	server *http.Server
-	addr   string
 
 	handler *httpHandler
 }

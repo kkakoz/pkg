@@ -28,16 +28,17 @@ func (a *App) Start(ctx context.Context) error {
 	eg, ctx := errgroup.WithContext(ctx)
 	wg := sync.WaitGroup{}
 	for _, server := range a.servers {
+		cur := server
 		eg.Go(func() error {
 			<-ctx.Done()
 			sctx, cancel := context.WithTimeout(ctx, a.stopTimeout)
 			defer cancel()
-			return server.Stop(sctx)
+			return cur.Stop(sctx)
 		})
 		wg.Add(1)
 		eg.Go(func() error {
 			wg.Done()
-			return server.Start(ctx)
+			return cur.Start(ctx)
 		})
 	}
 

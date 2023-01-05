@@ -16,20 +16,24 @@ var sugarLogger *zap.SugaredLogger
 
 func L() *zap.Logger {
 	once.Do(func() {
-		initLog(viper.GetViper())
+		InitLog(viper.GetViper())
 	})
 	return logger
 }
 
 func Sugar() *zap.SugaredLogger {
 	once.Do(func() {
-		initLog(viper.GetViper())
+		InitLog(viper.GetViper())
 	})
 	return sugarLogger
 }
 
 func Error(msg string, fields ...zap.Field) {
 	logger.Error(msg, fields...)
+}
+
+func Fatal(msg string, fields ...zap.Field) {
+	logger.Fatal(msg, fields...)
 }
 
 func Info(msg string, fields ...zap.Field) {
@@ -44,7 +48,7 @@ func Debug(msg string, fields ...zap.Field) {
 	logger.Debug(msg, fields...)
 }
 
-func initLog(viper *viper.Viper) {
+func InitLog(viper *viper.Viper) {
 	viper.SetDefault("log.path", "temp/temp.log")
 	viper.SetDefault("log.maxSize", 10)
 	viper.SetDefault("log.maxBackups", 5)
