@@ -24,7 +24,7 @@ func NewApp(name string, servers ...Server) *App {
 
 func (a *App) Start(ctx context.Context) error {
 
-	//ctx, a.cancel = context.WithCancel(ctx)
+	ctx, a.cancel = context.WithCancel(ctx)
 	eg, ctx := errgroup.WithContext(ctx)
 	wg := sync.WaitGroup{}
 	for _, server := range a.servers {

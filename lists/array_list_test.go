@@ -1,15 +1,15 @@
-package list_test
+package lists_test
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/kkakoz/pkg/list"
+	"github.com/kkakoz/pkg/lists"
 	"testing"
 )
 
 func TestList(t *testing.T) {
 	source := []int{5, 4, 3, 2, 1}
-	arrayList := list.NewArrayList(list.WithSlice(source))
+	arrayList := lists.NewArrayList(lists.WithSlice(source))
 
 	arrayList.AddLast(1)
 
@@ -27,7 +27,7 @@ func TestList(t *testing.T) {
 	fmt.Println(string(data))
 
 	// test filter by
-	arrayList = list.NewArrayList(list.WithSlice([]int{1, 2, 3}))
+	arrayList = lists.NewArrayList(lists.WithSlice([]int{1, 2, 3}))
 	fmt.Println(arrayList)
 
 	fmt.Println(arrayList.FilterBy(func(i int) bool {

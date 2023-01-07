@@ -1,4 +1,4 @@
-package list
+package lists
 
 type list[T any] interface {
 	Get(index int) (T, error)
