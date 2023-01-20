@@ -3,6 +3,8 @@ package app
 import (
 	"context"
 	"fmt"
+	"github.com/kkakoz/pkg/logger"
+	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 	"os"
 	"os/signal"
@@ -24,6 +26,8 @@ func NewApp(name string, servers ...Server) *App {
 
 func (a *App) Start(ctx context.Context) error {
 
+	a.stopTimeout = time.Second * 5
+
 	ctx, a.cancel = context.WithCancel(ctx)
 	eg, ctx := errgroup.WithContext(ctx)
 	wg := sync.WaitGroup{}
@@ -38,7 +42,11 @@ func (a *App) Start(ctx context.Context) error {
 		wg.Add(1)
 		eg.Go(func() error {
 			wg.Done()
-			return cur.Start(ctx)
+			err := cur.Start(ctx)
+			if err != nil {
+				logger.Error("启动失败", zap.Error(err))
+			}
+			return err
 		})
 	}
 

@@ -52,7 +52,7 @@ func (c *KafkaConsumer) Start(ctx context.Context) error {
 		case err := <-c.consumer.Errors():
 			logger.Error(fmt.Sprintf("kafka consumer err: %+v\n", err))
 		case ntf := <-c.consumer.Notifications():
-			logger.Info(fmt.Sprintf("kafka rebalanced: %+v\n", ntf))
+			logger.Info(fmt.Sprintf("kafka consumer rebalanced: %+v\n", ntf))
 		case msg, ok := <-c.consumer.Messages():
 			if ok {
 				err := c.runFunc(msg)
@@ -68,6 +68,5 @@ func (c *KafkaConsumer) Start(ctx context.Context) error {
 }
 
 func (c *KafkaConsumer) Stop(ctx context.Context) error {
-	c.consumer.Close()
-	return nil
+	return c.consumer.Close()
 }

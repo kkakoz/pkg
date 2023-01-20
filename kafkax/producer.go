@@ -1,7 +1,9 @@
 package kafkax
 
 import (
+	"fmt"
 	"github.com/Shopify/sarama"
+	"github.com/kkakoz/pkg/logger"
 	"github.com/spf13/viper"
 )
 
@@ -22,6 +24,7 @@ func NewSyncProducer(viper *viper.Viper) (sarama.SyncProducer, error) {
 	config.Producer.Partitioner = sarama.NewRandomPartitioner // 选择分区-随机分区
 	config.Producer.Return.Successes = true                   // 成功交付的消息将在success channel返回
 	//config.Producer.Idempotent = true                         // 幂等性, 重复数据只持久化一条
+	sarama.Logger = Logger{}
 
 	// 连接kafka
 	client, err := sarama.NewSyncProducer(o.Address, config)
@@ -39,3 +42,18 @@ func NewSyncProducer(viper *viper.Viper) (sarama.SyncProducer, error) {
 //	_, _, err := client.SendMessage(msg)
 //	return errors.Wrap(err, "发送消息失败")
 //}
+
+type Logger struct {
+}
+
+func (l Logger) Print(v ...interface{}) {
+	logger.Error(fmt.Sprint(v...))
+}
+
+func (l Logger) Printf(format string, v ...interface{}) {
+	logger.Error(fmt.Sprintf(format, v...))
+}
+
+func (l Logger) Println(v ...interface{}) {
+	logger.Error(fmt.Sprintln(v...))
+}

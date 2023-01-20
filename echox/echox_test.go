@@ -2,17 +2,17 @@ package echox_test
 
 import (
 	"fmt"
+	"github.com/kkakoz/pkg/echox"
 	"github.com/labstack/echo"
 	"go.uber.org/zap"
 	"net/http/httptest"
 	"testing"
-	"video_web/pkg/echox"
 )
 
 func TestEcho(t *testing.T) {
 	server := echo.New()
 	server.Binder = echox.NewBinder()
-	server.Validator = echox.NewValidator()
+	//server.Validator = echox.NewValidator()
 	// server.HTTPErrorHandler = echox.ErrHandler()
 	server.Logger = echox.NewLogger(zap.Logger{})
 	server.GET("/user/:id", func(context echo.Context) error {
