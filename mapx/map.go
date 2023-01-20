@@ -10,7 +10,7 @@ type SafeMap[K constraints.Ordered, V any] struct {
 	lock sync.RWMutex
 }
 
-func NewSyncMap[K constraints.Ordered, V any]() *SafeMap[K, V] {
+func NewSafeMap[K constraints.Ordered, V any]() *SafeMap[K, V] {
 	return &SafeMap[K, V]{m: map[K]V{}}
 }
 

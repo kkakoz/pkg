@@ -14,6 +14,7 @@ var cfg = pflag.StringP("config", "c", "configs/conf.yaml", "Configuration file.
 var confOnce sync.Once
 
 func Conf() *viper.Viper {
+	pflag.Parse()
 
 	confOnce.Do(func() {
 		viper.SetConfigFile(*cfg)
