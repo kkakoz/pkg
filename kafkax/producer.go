@@ -47,13 +47,13 @@ type Logger struct {
 }
 
 func (l Logger) Print(v ...interface{}) {
-	logger.Error(fmt.Sprint(v...))
+	logger.Info("kafka:" + fmt.Sprint(v...))
 }
 
 func (l Logger) Printf(format string, v ...interface{}) {
-	logger.Error(fmt.Sprintf(format, v...))
+	logger.Info("kafka:" + fmt.Sprintf(format, v...))
 }
 
 func (l Logger) Println(v ...interface{}) {
-	logger.Error(fmt.Sprintln(v...))
+	logger.Info("kafka:" + fmt.Sprintln(v...))
 }
