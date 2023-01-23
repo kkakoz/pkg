@@ -1,7 +1,8 @@
 package redisx
 
 import (
-	"github.com/go-redis/redis"
+	"context"
+	"github.com/go-redis/redis/v8"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 )
@@ -28,7 +29,7 @@ func Init(viper *viper.Viper) error {
 	}
 
 	client = redis.NewClient(options)
-	_, err := client.Ping().Result()
+	_, err := client.Ping(context.Background()).Result()
 	return errors.Wrap(err, "redis初始化失败")
 }
 
