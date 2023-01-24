@@ -17,6 +17,7 @@ func Conf() *viper.Viper {
 	pflag.Parse()
 
 	confOnce.Do(func() {
+		viper.AutomaticEnv()
 		viper.SetConfigFile(*cfg)
 
 		if err := viper.ReadInConfig(); err != nil {

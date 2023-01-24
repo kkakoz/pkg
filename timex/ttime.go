@@ -24,6 +24,22 @@ func Parse(layout, value string) (Time, error) {
 	return Time{t}, nil
 }
 
+func ParseStd(value string) (Time, error) {
+	t, err := time.Parse("2006-01-02 15:04:05", value)
+	if err != nil {
+		return Time{}, err
+	}
+	return Time{t}, nil
+}
+
+func ParseYMD(value string) (Time, error) {
+	t, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		return Time{}, err
+	}
+	return Time{t}, nil
+}
+
 func (t *Time) UnmarshalJSON(data []byte) (err error) {
 	num, err := strconv.Atoi(string(data))
 	if err != nil {
@@ -72,3 +88,9 @@ func (t *Time) Scan(value interface{}) error {
 
 	return fmt.Errorf("Can't convert %T to time.Time", value)
 }
+
+var Day = time.Hour * 24
+
+var Month = Day * 30
+
+var Year = Day * 365

@@ -24,7 +24,7 @@ func NewSyncProducer(viper *viper.Viper) (sarama.SyncProducer, error) {
 	config.Producer.Partitioner = sarama.NewRandomPartitioner // 选择分区-随机分区
 	config.Producer.Return.Successes = true                   // 成功交付的消息将在success channel返回
 	//config.Producer.Idempotent = true                         // 幂等性, 重复数据只持久化一条
-	sarama.Logger = Logger{}
+	//sarama.Logger = Logger{}
 
 	// 连接kafka
 	client, err := sarama.NewSyncProducer(o.Address, config)
